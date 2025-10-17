@@ -2,7 +2,7 @@
 
 ## Información del Documento
 
-**Última actualización:** [DD/MM/YYYY]  
+**Última actualización:** [14/10/2025]  
 **Versión del prototipo:** [v1.0]  
 **Herramienta:** Figma  
 
@@ -23,7 +23,7 @@ Este documento centraliza toda la información sobre los **diseños y prototipos
 ## Enlaces Principales
 
 ### Proyecto Principal
-**URL:** [https://www.figma.com/file/XXXXX/nombre-proyecto](URL_COMPLETA_DE_FIGMA)
+**URL:** [https://www.figma.com/design/EXGFMRQO2lT7EyCnlVUlE0/App-de-mi-clinica?node-id=533-1457&t=Q1lOwJaTbSAh9TOG-0](URL_COMPLETA_DE_FIGMA)
 
 ---
 
@@ -32,23 +32,23 @@ Este documento centraliza toda la información sobre los **diseños y prototipos
 ### Sistema de Diseño
 
 **Paleta de colores:**
-- **Color primario:** #XXXXXX - Acciones principales
-- **Color secundario:** #XXXXXX - Elementos complementarios
-- **Color de acento:** #XXXXXX - Llamadas a la acción
+- **Color primario:** #576273 - Acciones principales
+- **Color secundario:** #873B3B - Elementos complementarios
+- **Color de acento:** #333B4C - Llamadas a la acción
 - **Colores de estado:**
-  - Éxito: #XXXXXX
-  - Error: #XXXXXX
-  - Advertencia: #XXXXXX
-  - Info: #XXXXXX
+  - Éxito: #709B92
+  - Error: #611919
+  - Advertencia:  #000000
+  - Info: #000000 
 
 **Tipografía:**
-- **Principal:** [Nombre de fuente] - Textos y contenido
-- **Títulos:** [Nombre de fuente] - Encabezados
+- **Principal:** [ Lato] - Textos y contenido
+- **Títulos:** [Palanquin Dark] - Encabezados
 
 
 **Espaciado:**
 - Sistema de **8px grid**
-- Espaciado base: 8px, 16px, 24px, 32px
+- Espaciado base: 8px, 16px, 24px, 32pxg
 
 ---
 
@@ -117,8 +117,8 @@ Este documento centraliza toda la información sobre los **diseños y prototipos
 ### Responsive Design
 
 **Breakpoints definidos:**
-- **Mobile:** 320px - 767px
-- **Desktop:** 1024px+
+- **Mobile:** 402px - 874px
+- **Desktop:** 1440px - 1024px 
 
 ### Accesibilidad
 

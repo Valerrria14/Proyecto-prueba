@@ -14,8 +14,8 @@ Hemodialisis una clinica nueva en la cuidad, que busca garantizar el bienestar p
 - Figma, Trello, Github
 
 ### Backend 
-- Node.js / Python / [Lenguaje a usar]
-- Base de datos: [PostgreSQL/MongoDB]
+- Node.js / JavaScrip / Express
+- Base de datos: PostgreSQL
 
 ## Estructura del Proyecto
 Cuenta con un login, acceso para recepcionistas, medicos y pacientes. Información breve y concisa, funcionalidades faciciles de usar.
