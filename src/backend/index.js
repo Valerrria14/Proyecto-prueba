@@ -1,8 +1,9 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import userRoutes from "./routers/userRoutes.js";
-import { swaggerSpec } from "./swagger.js";
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import userRoutes from './routers/userRoutes.js';
+import emailRoutes from './routers/emailRoutes.js';
+import { swaggerSpec } from './swagger.js';
 import swaggerUi from 'swagger-ui-express';
 
 dotenv.config();
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 
 //Rutas que deseo usar
 app.use("/api/users", userRoutes);
+app.use("/api/email", emailRoutes);
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo y escuchando en el puerto 🛸 ${PORT}`);
