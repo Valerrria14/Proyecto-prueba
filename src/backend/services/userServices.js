@@ -2,7 +2,7 @@ import {PrismaClient} from '@prisma/client';
 
 const prisma = new PrismaClient;
 
-export const userService ={
+export const userServices ={
     //crear usuarios
     async createUser(data){
         try{

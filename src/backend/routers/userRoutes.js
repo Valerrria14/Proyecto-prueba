@@ -1,5 +1,6 @@
 import express from 'express';
-import { userController } from '../controllers/userController.js';
+import { userControllers } from '../controllers/userControllers.js';
+
 
 const router = express.Router(); 
 
@@ -34,7 +35,7 @@ const router = express.Router();
  */
 
 // Rutas para llamar el usuario 
-router.get('/',userController. getUsers);
+router.get('/',userControllers. getUsers);
 
 /**
  * @swagger
@@ -144,11 +145,11 @@ router.get('/',userController. getUsers);
  *      
  */
 
-router.post('/',userController.createUser);
+router.post('/',userControllers.createUser);
 
 
 
-router.put('/:id',userController.updateUSer);
+router.put('/:id',userControllers.updateUSer);
 
 export default router; 
 

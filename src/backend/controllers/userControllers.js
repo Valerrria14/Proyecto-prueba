@@ -1,9 +1,9 @@
-import  {userService} from '../services/userServices.js';
+import { userServices } from '../services/userServices.js';
 
-export const userController = {
+export const userControllers = {
     async getUsers (req, res){
         try{
-            const users = await userService.getAllUsers();
+            const users = await userServices.getAllUsers();
             res.status(200).json({
                 succes: true, 
                 data:users 
@@ -27,7 +27,7 @@ export const userController = {
                 });
             }
 
-            const newUser = await userService.createUser({email, name})
+            const newUser = await userServices.createUser({email, name})
             res.status(201).json({
                 succes:true,
                 data:newUser,
@@ -46,7 +46,7 @@ export const userController = {
             const {id} = req.params;
             const updateData = req.body;
 
-            const updateUser = await userService.updateUSer(id, updateData);
+            const updateUser = await userServices.updateUSer(id, updateData);
 
             res.status(200).json ({
                 succes: true,
