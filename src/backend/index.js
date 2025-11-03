@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import passport from 'passport';
+import session from 'express-session';
 import userRoutes from './routers/userRoutes.js';
 import emailRoutes from './routers/emailRoutes.js';
 import authRoutes from './routers/authRoutes.js';
@@ -28,6 +30,15 @@ app.get("/", (req, res) => {
 app.use("/api/users", userRoutes);
 app.use("/api/email", emailRoutes);
 app.use("/api/auth", authRoutes);
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo y escuchando en el puerto 🛸 ${PORT}`);

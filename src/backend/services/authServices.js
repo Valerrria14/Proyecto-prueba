@@ -1,11 +1,12 @@
 import { PrismaClient }  from '@prisma/client';
 import { hashPassword, comparePassword, verifyToken, generateToken } from '../utils/auth.js';
+import { registerUser } from '../controllers/emailControllers.js';
 
 const prisma = new PrismaClient;
 
 export const authServices = {
     //Registar usuarios
-    async registerUSer(data){
+    async register(data){
         try{
             const{email, name, password} = data;
             const hashedPassword = await hashPassword(password)
