@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -37,10 +36,10 @@ function Home() {
       ) : ( 
         <div>
           <p className="text-red-600 text-xl">
-            PArece que no haz inicado session</p>
-          <link to="/login" className="mt-4 inline-block text-blue-500">
+            Parece que no haz inicado session</p>
+          <Link to="/login" className="mt-4 inline-block text-blue-500">
           Ir a la paguina de Login
-          </link>
+          </Link>
         </div>
         )}
     </div>
