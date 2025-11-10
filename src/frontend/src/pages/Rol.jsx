@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Heart, Mail, Lock, MapPin, Phone, Facebook, Instagram, ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
-import pacienteImg from '../assets/paciente.png';
+import logo from '../assets/logo.png';
 import ahoraImg from '../assets/3.webp';
 import especializadosImg from '../assets/4.png';
+import profeImg from '../assets/2.webp';
+import maquiImg from '../assets/dialisis.jpg';
+import exaImg from '../assets/exmane.webp';
 
 
 export default function Rol() {
@@ -15,20 +18,20 @@ export default function Rol() {
     {
       id: 'recepcionista',
       name: 'Recepcionista',
-      icon: '👨‍💼',
-      color: 'from-blue-500 to-blue-600'
+      icon: '🛎️',
+      color: 'from-blue-200 to-gray-300'
     },
     {
       id: 'medico',
       name: 'Médico',
-      icon: '👨‍⚕️',
-      color: 'from-teal-500 to-teal-600'
+      icon: '🩺',
+      color: 'from-teal-200 to-gray-300'
     },
     {
       id: 'paciente',
       name: 'Paciente',
-      icon: '🧑',
-      color: 'from-purple-500 to-purple-600'
+      icon: '👤',
+      color: 'from-purple-200 to-gray-300'
     }
   ];
 
@@ -37,36 +40,36 @@ export default function Rol() {
       title: 'AHORA',
       subtitle: 'Conecta con profesionales',
       description: 'podrás ahorrar tus tratamientos, recetas y quedarás en manos del especialista.',
-      image: especializadosImg,
-      gradient: 'from-rose-100 to-pink-100'
+      image: profeImg,
+      gradient: 'from-rose-50 to-[#9B9B9A]'
     },
     {
       title: 'PORQUÉ',
       subtitle: 'Servicio personalizado',
       description: 'te brindamos un espacio completo, tranquilidad ante nuestros profesionales.',
-      image: '💬👥',
-      gradient: 'from-amber-100 to-orange-100'
+      image: ahoraImg,
+      gradient: 'from-amber-50 to-[#9B9B9A]'
     },
     {
       title: 'ESPECIALIZADOS',
       subtitle: 'Expertos en cuidado renal',
       description: 'nuestro equipo es HEMODIÁLISIS y DIÁLISIS PERITONEAL.',
-      image: '🏥⚕️',
-      gradient: 'from-blue-100 to-cyan-100'
+      image: especializadosImg,
+      gradient: 'from-blue-50 to-[#9B9B9A]'
     },
     {
       title: 'REALIZAMOS',
       subtitle: 'Exámenes especializados',
       description: 'realizamos pruebas, solo para monitorear la protección de cualquier órgano.',
-      image: '🔬📋',
-      gradient: 'from-green-100 to-emerald-100'
+      image: exaImg,
+      gradient: 'from-green-50 to-[#9B9B9A]'
     },
     {
       title: 'CONTAMOS',
       subtitle: 'Tecnología avanzada',
       description: 'para una mejor atención y diagnóstico para nuestra salud.',
-      image: '💻🖥️',
-      gradient: 'from-violet-100 to-purple-100'
+      image: maquiImg,
+      gradient: 'from-violet-50 to-[#9B9B9A]'
     }
   ];
 
@@ -89,24 +92,20 @@ export default function Rol() {
         <div className="max-w-md w-full">
           <button
             onClick={() => setSelectedRole(null)}
-            className="mb-6 flex items-center gap-2 text-slate-600 hover:text-slate-800 transition-colors"
-          >
+            className="mb-6 flex items-center gap-2 text-slate-600 hover:text-slate-800 transition-colors">
             <ArrowLeft className="w-5 h-5" />
-            <span>Volver a roles</span>
+            <span></span>
           </button>
 
           <div className="bg-white rounded-3xl shadow-2xl p-10">
             <div className="text-center mb-8">
               <div className="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
-                <svg viewBox="0 0 200 200" className="w-full h-full">
-                  <circle cx="100" cy="50" r="20" fill="none" stroke="#1e3a5f" strokeWidth="3"/>
-                  <path d="M 70 80 Q 70 60, 100 60 Q 130 60, 130 80" fill="none" stroke="#1e3a5f" strokeWidth="3" strokeLinecap="round"/>
-                  <line x1="100" y1="70" x2="100" y2="140" stroke="#1e3a5f" strokeWidth="3"/>
-                  <path d="M 100 120 Q 80 120, 80 140 Q 80 160, 100 160" fill="none" stroke="#1e3a5f" strokeWidth="3"/>
-                  <path d="M 100 120 Q 120 120, 120 140 Q 120 160, 100 160" fill="none" stroke="#1e3a5f" strokeWidth="3"/>
-                </svg>
+                <img
+                src={logo}
+                alt="Logo Hemodiálisis"
+                className="w-40 h-40 mx-auto object-contain"/>
               </div>
-              <h1 className="text-3xl font-bold text-slate-800 mb-2">HEMODIÁLISIS</h1>
+              <h1 className="text-3xl font-bold text-slate-800 mb-2">HEMODIALISIS</h1>
               <p className="text-slate-600">Especializados en hemodiálisis y diálisis peritoneal</p>
             </div>
 
@@ -130,7 +129,7 @@ export default function Rol() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="hombreloco@hemodila.com"
+                    placeholder="hemodialisis@gmail.com"
                     className="w-full pl-12 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all"
                   />
                 </div>
@@ -168,9 +167,9 @@ export default function Rol() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
       {/* Header con Roles */}
-      <div className="bg-white shadow-md">
+      <div className="bg-[#F0F7FF] shadow-md">
         <div className="max-w-7xl mx-auto px-8 py-8">
-          <h2 className="text-3xl font-bold text-slate-800 mb-8 text-center">ROLES</h2>
+          <h2 className="text-3xl font-bold text-slate-800 mb-8 text-center text-[#20586A]">ROLES</h2>
           <div className="flex justify-center gap-12">
             {roles.map((role) => (
               <button
@@ -222,13 +221,18 @@ export default function Rol() {
             </div>
 
             <div className="text-center">
-              <div className="text-8xl mb-6">
-                {carouselItems[currentSlide].image}
-              </div>
-              <p className="text-lg text-slate-700 max-w-2xl mx-auto leading-relaxed">
-                {carouselItems[currentSlide].description}
-              </p>
-            </div>
+                <div className="mb-6 flex justify-center">
+                    <img
+                    src={carouselItems[currentSlide].image}
+                    alt={carouselItems[currentSlide].title}
+                    className="w-72 h-64 object-contain rounded-3xl shadow-lg transition-transform duration-300 hover:scale-105"
+                    />
+                </div>
+                <p className="text-lg text-slate-700 max-w-2xl mx-auto leading-relaxed">
+                    {carouselItems[currentSlide].description}
+                </p>
+                </div>
+
 
             <div className="flex justify-center gap-2 mt-8">
               {carouselItems.map((_, index) => (
@@ -315,7 +319,7 @@ export default function Rol() {
 
           <div className="border-t border-slate-700 pt-6 flex justify-between items-center">
             <p className="text-slate-400 text-sm">
-              © 2025 HEMODIÁLISIS. Todos los derechos reservados.
+              © 2025 HEMODIALISIS. Todos los derechos reservados.
             </p>
             <div className="flex gap-4">
               <button className="w-10 h-10 rounded-full bg-slate-700 hover:bg-teal-600 flex items-center justify-center transition-all">

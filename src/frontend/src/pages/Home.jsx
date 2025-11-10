@@ -62,7 +62,7 @@ export default function Home() {
         {/* Logo y título principal */}
         <div className="text-center mb-16">
           <div className="mb-8">
-            {/* Aquí irá tu logo importado */}
+            {/* logo*/}
             <div className="w-32 h-32 mx-auto mb-8 flex items-center justify-center">
               <img
               src={logo}
