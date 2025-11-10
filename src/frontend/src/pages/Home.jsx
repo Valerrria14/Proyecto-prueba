@@ -53,7 +53,7 @@ import { Heart, Activity, Calendar, Shield, Clock } from 'lucide-react';
 import logo from '../assets/logo.png';
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-
+import Carrusel from '../components/Carrusel';
 
 export default function Home() {
   return (
