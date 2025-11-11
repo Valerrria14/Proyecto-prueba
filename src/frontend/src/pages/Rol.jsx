@@ -1,38 +1,57 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Heart, Mail, Lock, MapPin, Phone, Facebook, Instagram, ArrowLeft } from 'lucide-react';
 import logo from '../assets/logo.png';
 import Carrusel from '../components/Carrusel';
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Rol() {
+  const navigate = useNavigate();
+  const [roles, setRoles] = useState([]);
   const [selectedRole, setSelectedRole] = useState(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const roles = [
-    {
-      id: 'recepcionista',
-      name: 'Recepcionista',
-      icon: '🛎️',
-      color: 'from-blue-200 to-gray-300'
-    },
-    {
-      id: 'medico',
-      name: 'Médico',
-      icon: '🩺',
-      color: 'from-teal-200 to-gray-300'
-    },
-    {
-      id: 'paciente',
-      name: 'Paciente',
-      icon: '👤',
-      color: 'from-purple-200 to-gray-300'
-    }
-  ];
+  useEffect(() => {
+    fetch("http://localhost:3000/api/rol") // Cambia el puerto si tu backend usa otro
+      .then((res) => res.json())
+      .then((data) => setRoles(data))
+      .catch((err) => console.error("Error al cargar roles:", err));
+  }, []);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    console.log('Login con:', { role: selectedRole, email, password });
-  };
+  const handleLogin = async (e) => {
+  e.preventDefault();
+
+  try {
+    const res = await fetch("http://localhost:3000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await res.json();
+
+    if (data.success || data.succes) {
+      const user = data.data?.user || {};
+      const token = data.data?.token;
+      if (token) {
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user));
+      }
+      alert("✅ Inicio de sesión exitoso");
+      navigate('/recepcion'); // Cambia por tu ruta real
+      console.log("Usuario:", user);
+      console.log("Token:", token);
+    } else {
+      alert("❌ " + data.message || "Error al iniciar session");
+    }
+  } catch (error) {
+    console.error("Error en login:", error);
+    alert("Error al conectar con el servidor");
+  }
+};
+
 
   if (selectedRole) {
     return (
@@ -98,19 +117,30 @@ export default function Rol() {
                   />
                 </div>
               </div>
-
               <button
                 onClick={handleLogin}
                 className="w-full bg-gradient-to-r from-teal-500 to-teal-600 text-white py-3 rounded-xl font-semibold hover:from-teal-600 hover:to-teal-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
                 Iniciar sesión
+
               </button>
+
+              <p className="text-center text-sm text-slate-600 mt-6">
+                ¿No tienes cuenta?{" "}
+                <Link
+                  to="/register"
+                  className="font-semibold text-teal-600 hover:text-teal-800 transition-colors"
+                >
+                  Regístrate aquí
+                </Link>
+              </p>
             </div>
           </div>
         </div>
       </div>
     );
   }
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">

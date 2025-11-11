@@ -31,7 +31,15 @@ function Register() {
       }
 
       console.log('Usuario registrado:', data);
-      navigate('/login-success');
+
+      // Guardar token en localStorage
+      if (data.data?.token) {
+        localStorage.setItem('token', data.data.token);
+        localStorage.setItem('user', JSON.stringify(data.data.user));
+      }
+
+      navigate('/rol'); // Redirige al login (o al home si ya está logueado)
+
 
     } catch (err) {
       setError(err.message);
@@ -104,7 +112,7 @@ function Register() {
 
         <p className="text-sm text-center text-gray-600">
           ¿Ya tienes una cuenta?{' '}
-          <Link to="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
+          <Link to="/rol" className="font-medium text-indigo-600 hover:text-indigo-500">
             Inicia sesión
           </Link>
         </p>

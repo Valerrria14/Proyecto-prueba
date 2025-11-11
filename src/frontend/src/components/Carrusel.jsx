@@ -22,13 +22,13 @@ function Carrusel() {
       title: "AHORA",
       subtitle: "Conecta con profesionales",
       description:
-        "podrás ahorrar tus tratamientos, recetas y quedarás en manos del especialista.",
+        "podrás observar tus tratamientos, recetas y muchos más en nuestra nueva app ClinicHemo.",
       image: profeImg,
       gradient: "from-rose-50 to-[#9B9B9A]",
     },
     {
       title: "PORQUÉ",
-      subtitle: "Servicio personalizado",
+      subtitle: "En un servicio personalizado",
       description:
         "te brindamos un espacio completo, tranquilidad ante nuestros profesionales.",
       image: ahoraImg,
@@ -36,8 +36,8 @@ function Carrusel() {
     },
     {
       title: "ESPECIALIZADOS",
-      subtitle: "Expertos en cuidado renal",
-      description: "nuestro equipo es HEMODIÁLISIS y DIÁLISIS PERITONEAL.",
+      subtitle: "Expertos en ver por tu salud",
+      description: "equipos especializados en HEMODIÁLISIS y DIÁLISIS PERITONEAL .",
       image: especializadosImg,
       gradient: "from-blue-50 to-[#9B9B9A]",
     },
@@ -45,14 +45,14 @@ function Carrusel() {
       title: "REALIZAMOS",
       subtitle: "Exámenes especializados",
       description:
-        "realizamos pruebas, solo para monitorear la protección de cualquier órgano.",
+        "realizamos pruebas de toda índole con una amplia variedad de categorias",
       image: exaImg,
       gradient: "from-green-50 to-[#9B9B9A]",
     },
     {
       title: "CONTAMOS",
       subtitle: "Tecnología avanzada",
-      description: "para una mejor atención y diagnóstico para nuestra salud.",
+      description: "para una mejor atención y diagnóstico 100% fiable para su salud.",
       image: maquiImg,
       gradient: "from-violet-50 to-[#9B9B9A]",
     },
@@ -75,13 +75,13 @@ function Carrusel() {
             </button>
 
             <div className="text-center flex-1">
-              <h2 className="text-5xl font-bold text-slate-800 mb-3">
+              <h2 className="text-5xl font-bold text-[#20586A] mb-3">
                 {carouselItems[currentSlide].title}
               </h2>
-              <p className="text-2xl text-slate-700 font-medium mb-4">
+              <p className="text-2xl text-[#2E3648] font-medium mb-4">
                 {carouselItems[currentSlide].subtitle}
               </p>
-            </div>
+            </div>  
 
             <button
               onClick={nextSlide}
@@ -96,10 +96,10 @@ function Carrusel() {
               <img
                 src={carouselItems[currentSlide].image}
                 alt={carouselItems[currentSlide].title}
-                className="w-72 h-64 object-contain rounded-3xl shadow-lg transition-transform duration-300 hover:scale-105"
+                className="w-96 h-80 object-contain rounded-3xl shadow-lg transition-transform duration-300 hover:scale-105"
               />
             </div>
-            <p className="text-lg text-slate-700 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg text-[#2E3648] max-w-2xl mx-auto leading-relaxed">
               {carouselItems[currentSlide].description}
             </p>
           </div>
