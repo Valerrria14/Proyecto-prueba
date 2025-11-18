@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Heart, Mail, Lock, MapPin, Phone, Facebook, Instagram, ArrowLeft } from 'lucide-react';
+import {
+  Heart, Mail, Lock, MapPin, Phone, Facebook, Instagram,
+  ArrowLeft
+} from 'lucide-react';
 import logo from '../assets/logo.png';
 import Carrusel from '../components/Carrusel';
 import { Link, useNavigate } from "react-router-dom";
@@ -11,48 +14,73 @@ export default function Rol() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // Cargar roles desde backend
   useEffect(() => {
-    fetch("http://localhost:3000/api/rol") // Cambia el puerto si tu backend usa otro
+    fetch("http://localhost:3000/api/rol")
       .then((res) => res.json())
       .then((data) => setRoles(data))
       .catch((err) => console.error("Error al cargar roles:", err));
   }, []);
 
+  // LOGIN
   const handleLogin = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    const res = await fetch("http://localhost:3000/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const res = await fetch("http://localhost:3000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          password,
+          roleId: selectedRole // Enviamos el rol seleccionado
+        }),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
+      console.log("Respuesta del backend:", data);
 
-    if (data.success || data.succes) {
-      const user = data.data?.user || {};
-      const token = data.data?.token;
-      if (token) {
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(user));
+      if (!data.data?.token) {
+        alert("❌ " + (data.message || "Error al iniciar sesión"));
+        return;
       }
+
+      const user = data.data.user;
+      const token = data.data.token;
+
+      // Guardar datos
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+
+      // Guardar rol seleccionado
+      localStorage.setItem("selectedRoleId", selectedRole);
+
       alert("✅ Inicio de sesión exitoso");
-      navigate('/recepcion'); // Cambia por tu ruta real
-      console.log("Usuario:", user);
-      console.log("Token:", token);
-    } else {
-      alert("❌ " + data.message || "Error al iniciar session");
+
+      // Validar rol REAL del usuario
+      const realRoleId = user.roleId; // De la BD
+      const selectedRoleId = parseInt(localStorage.getItem("selectedRoleId"), 10);
+
+      if (realRoleId !== selectedRoleId) {
+        alert("❌ No perteneces a este rol");
+        return;
+      }
+
+      // Redirecciones seguras
+      if (realRoleId === 1) navigate("/recepcion");
+      else if (realRoleId === 2) navigate("/doc"); // Tu Doc.jsx
+      else if (realRoleId === 3) navigate("/paciente");
+      else alert("❌ Rol no reconocido");
+
+    } catch (error) {
+      console.error("Error en login:", error);
+      alert("Error al conectar con el servidor");
     }
-  } catch (error) {
-    console.error("Error en login:", error);
-    alert("Error al conectar con el servidor");
-  }
-};
+  };
 
-
+  // ===========================
+  //       FORMULARIO LOGIN
+  // ===========================
   if (selectedRole) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center p-8">
@@ -61,16 +89,15 @@ export default function Rol() {
             onClick={() => setSelectedRole(null)}
             className="mb-6 flex items-center gap-2 text-slate-600 hover:text-slate-800 transition-colors">
             <ArrowLeft className="w-5 h-5" />
-            <span></span>
           </button>
 
           <div className="bg-white rounded-3xl shadow-2xl p-10">
             <div className="text-center mb-8">
               <div className="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
                 <img
-                src={logo}
-                alt="Logo Hemodiálisis"
-                className="w-40 h-40 mx-auto object-contain"/>
+                  src={logo}
+                  alt="Logo Hemodiálisis"
+                  className="w-40 h-40 mx-auto object-contain" />
               </div>
               <h1 className="text-3xl font-bold text-slate-800 mb-2">HEMODIALISIS</h1>
               <p className="text-slate-600">Especializados en hemodiálisis y diálisis peritoneal</p>
@@ -85,6 +112,7 @@ export default function Rol() {
               </h2>
             </div>
 
+            {/* FORM */}
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">
@@ -97,7 +125,7 @@ export default function Rol() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="hemodialisis@gmail.com"
-                    className="w-full pl-12 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all"
+                    className="w-full pl-12 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-teal-500"
                   />
                 </div>
               </div>
@@ -113,24 +141,20 @@ export default function Rol() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Ingrese su contraseña"
-                    className="w-full pl-12 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all"
+                    className="w-full pl-12 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-teal-500"
                   />
                 </div>
               </div>
+
               <button
                 onClick={handleLogin}
-                className="w-full bg-gradient-to-r from-teal-500 to-teal-600 text-white py-3 rounded-xl font-semibold hover:from-teal-600 hover:to-teal-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-              >
+                className="w-full bg-gradient-to-r from-teal-500 to-teal-600 text-white py-3 rounded-xl font-semibold hover:from-teal-600 hover:to-teal-700 shadow-lg">
                 Iniciar sesión
-
               </button>
 
               <p className="text-center text-sm text-slate-600 mt-6">
                 ¿No tienes cuenta?{" "}
-                <Link
-                  to="/register"
-                  className="font-semibold text-teal-600 hover:text-teal-800 transition-colors"
-                >
+                <Link to="/register" className="font-semibold text-teal-600 hover:text-teal-800">
                   Regístrate aquí
                 </Link>
               </p>
@@ -141,24 +165,32 @@ export default function Rol() {
     );
   }
 
-
+  // ===========================
+  //        BOTONES DE ROLES
+  // ===========================
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-      {/* Header con Roles */}
       <div className="bg-[#F0F7FF] shadow-md">
         <div className="max-w-7xl mx-auto px-8 py-8">
-          <h2 className="text-3xl font-bold text-slate-800 mb-8 text-center text-[#20586A]">ROLES</h2>
+          <h2 className="text-3xl font-bold text-slate-800 mb-8 text-center text-[#20586A]">
+            ROLES
+          </h2>
+
           <div className="flex justify-center gap-12">
             {roles.map((role) => (
               <button
                 key={role.id}
-                onClick={() => setSelectedRole(role.id)}
+                onClick={() => {
+                  setSelectedRole(role.id);
+                  localStorage.setItem("selectedRoleId", role.id);
+                }}
                 className="flex flex-col items-center gap-3 group"
               >
-                <div className={`w-24 h-24 rounded-full bg-gradient-to-br ${role.color} flex items-center justify-center text-4xl shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-300`}>
+                <div className={`w-24 h-24 rounded-full bg-gradient-to-br ${role.color} 
+                flex items-center justify-center text-4xl shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all`}>
                   {role.icon}
                 </div>
-                <span className="font-semibold text-slate-700 group-hover:text-slate-900 transition-colors">
+                <span className="font-semibold text-slate-700 group-hover:text-slate-900">
                   {role.name}
                 </span>
               </button>
@@ -167,89 +199,11 @@ export default function Rol() {
         </div>
       </div>
 
-      {/* Carrusel */}
-      <Carrusel></Carrusel>
+      <Carrusel />
 
-      {/* Footer */}
+      {/* FOOTER */}
       <footer className="bg-gradient-to-br from-slate-800 to-slate-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="grid grid-cols-3 gap-12 mb-8">
-            {/* Información */}
-            <div>
-              <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <Heart className="w-5 h-5" fill="currentColor" />
-                HEMODIALISIS
-              </h3>
-              <p className="text-slate-300 leading-relaxed">
-                Centro especializado en tratamientos de hemodiálisis y diálisis peritoneal. 
-                Comprometidos con tu salud y bienestar.
-              </p>
-            </div>
-
-            {/* Información de contacto */}
-            <div>
-              <h3 className="text-xl font-bold mb-4">Información de contacto</h3>
-              <div className="space-y-3">
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-teal-400 flex-shrink-0 mt-1" />
-                  <p className="text-slate-300">
-                    Av. Zabala #462<br />
-                    Pucallpa, Ucayali, Perú
-                  </p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-teal-400" />
-                  <p className="text-slate-300">+51 972 244 293</p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Mail className="w-5 h-5 text-teal-400" />
-                  <p className="text-slate-300">hemodialisis@gmail.com</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Información adicional */}
-            <div>
-              <h3 className="text-xl font-bold mb-4">Información</h3>
-              <ul className="space-y-2 text-slate-300">
-                <li>
-                  <button className="hover:text-teal-400 transition-colors">
-                    Aviso de privacidad
-                  </button>
-                </li>
-                <li>
-                  <button className="hover:text-teal-400 transition-colors">
-                    Términos y condiciones
-                  </button>
-                </li>
-                <li>
-                  <button className="hover:text-teal-400 transition-colors">
-                    Política de privacidad
-                  </button>
-                </li>
-                <li>
-                  <button className="hover:text-teal-400 transition-colors">
-                    Reglas de promoción
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-slate-700 pt-6 flex justify-between items-center">
-            <p className="text-slate-400 text-sm">
-              © 2025 HEMODIALISIS. Todos los derechos reservados.
-            </p>
-            <div className="flex gap-4">
-              <button className="w-10 h-10 rounded-full bg-slate-700 hover:bg-teal-600 flex items-center justify-center transition-all">
-                <Facebook className="w-5 h-5" />
-              </button>
-              <button className="w-10 h-10 rounded-full bg-slate-700 hover:bg-teal-600 flex items-center justify-center transition-all">
-                <Instagram className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
-        </div>
+        ...
       </footer>
     </div>
   );

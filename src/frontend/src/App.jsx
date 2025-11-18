@@ -6,7 +6,7 @@ import LoginSuccess from "./pages/LoginSuccess";
 import LoginError from './pages/LoginError';
 import Rol from "./pages/Rol";
 import Recepcion from "./pages/Recepcion";
-
+import Doc from "./pages/Doc";
 
 
 
@@ -21,6 +21,7 @@ function App() {
         <Route path="/login-success" element={ <LoginSuccess />} />
         <Route path="/rol" element={ <Rol />} />
         <Route path="/recepcion" element={<Recepcion />} />
+        <Route path="/doc" element={<Doc />} />
 
       </Routes>
     </BrowserRouter>
