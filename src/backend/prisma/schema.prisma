@@ -10,6 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model User {
   id Int @id @default(autoincrement())
   email String @unique
@@ -17,5 +18,14 @@ model User {
   password String? //Metodo tradicional
   googleId String? @unique //Metodo login con google
   avatar String? //Obtener la foto de perfil
+  //Rol
+  roleId Int? 
+  role Rol? @relation(fields: [roleId], references: [id])
 
+}
+
+model Rol {
+  id Int @id @default(autoincrement())
+  name String @unique
+  users User[]
 }

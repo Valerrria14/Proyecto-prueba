@@ -5,8 +5,9 @@ export const authControllers = {
   // Registro tradicional
   async register(req, res) {
     try {
-      const { email, name, password } = req.body;
-      const result = await authServices.register({ email, name, password });
+      const { email, password, role } = req.body;
+      const result = await authServices.login({ email, password, role });
+
 
       //Token para el nuevo usuario
 
